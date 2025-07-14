@@ -12,6 +12,15 @@ def index():
 #     q = float(request.form.get("q"))
 #     return(render_template("prediction.html",r=(-50.6*q)+90.2))
 
+@app.route("/main",methods=["GET","POST"])
+def main():  
+    # q = float(request.form.get("q"))
+    return(render_template("main.html"))
+           
+@app.route("/dbs",methods=["GET","POST"])
+def dbs():  
+    return(render_template("dbs.html"))
+
 @app.route("/prediction",methods=["GET","POST"])
 def prediction():
     q = float(request.form.get("q"))
@@ -23,6 +32,8 @@ def prediction():
     pred = model.predict([[q]])
 
     return(render_template("prediction.html",r=pred))
+
+
            
 if __name__ == "__main__":
     app.run()
