@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deepseek Reply - Groq</title>
+    <style>
+        /* Basic inline CSS for quick styling if styles.css isn't ready */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 30px auto;
+        }
+        h2 {
+            color: #0056b3;
+            margin-bottom: 20px;
+        }
+        pre {
+            background-color: #e2e2e2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto; /* Ensures horizontal scrolling for long lines */
+            white-space: pre-wrap; /* Wraps long lines */
+            word-wrap: break-word; /* Breaks words if necessary */
+        }
+        form {
+            margin-top: 25px;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {cls
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Deepseek Reply via Groq:</h2>
+        {% if r %}
+            <pre>{{ r }}</pre>
+        {% else %}
+            <p>No response received yet. Please go back and try again.</p>
+        {% endif %}
+
+        <form action="/main" method="post">
+            <input type="submit" value="Done">
+        </form>
+    </div>
+</body>
+</html>
