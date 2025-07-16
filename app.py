@@ -89,8 +89,8 @@ def prediction():
     return(render_template("prediction.html",r=pred))
 
 #----------------------------------------------
-@app.route("/telegram",methods=["GET","POST"])
-def telegram():  
+@app.route("/start_telegram",methods=["GET","POST"])
+def start_telegram():  
     domain_url = "https://dsai-superapp.onrender.com"
 
     # The following line is used to delete the existing webhook URL for the Telegram bot
@@ -109,6 +109,25 @@ def telegram():
         status = "Failed to start the telegram bot. Please check the logs."
     
     return(render_template("telegram.html", status=status))
+
+#----------------------------------------------
+@app.route("/stop_telegram",methods=["GET","POST"])
+def stop_telegram():  
+    domain_url = "https://dsai-superapp.onrender.com"
+
+    # The following line is used to delete the existing webhook URL for the Telegram bot
+    delete_webhook_url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/deleteWebhook"
+    webhook_response = requests.post(delete_webhook_url, json={"url": domain_url, "drop_pending_updates": True})
+
+    if webhook_response.status_code == 200:
+        # set status message
+        status = "Failed to stop the telegram bot. Please check the logs."
+    else:
+        status = "The telegram bot is stopped."
+    
+    return(render_template("telegram.html", status=status))
+    # return(render_template("telegram.html"))
+
 
 #----------------------------------------------
 @app.route("/telegram_webhook",methods=["GET","POST"])
