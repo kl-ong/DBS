@@ -1,0 +1,15 @@
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>DSAI SuperApp in Telegram</h2>
+        <h4>{{status}}</h4>
+        <h4>{{text}}</h4>
+        <h4>{{chat_id}}</h4>
+        <form action="/main" method="post">         
+            <input type="submit" value="Main">
+        </form>
+    </div>
+</body>
