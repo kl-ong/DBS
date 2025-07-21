@@ -7,20 +7,27 @@
 <body>
     <div class="container">
     <h2>Welcome to DSAI SuperApp</h2>
-        <form action="/start_telegram" method="post">
-            <input type="submit" value="Start Telegram">
-        </form>
-        <form action="/stop_telegram" method="post">
-            <input type="submit" value="Stop Telegram">
-        </form>
+        <form action="/dbs" method="post">
+            <input type="submit" value="Predict DBS price">
+        </form>    
         <form action="/deepseek" method="post">
             <input type="submit" value="Deepseek chatbot via Groq">
         </form>
         <form action="/llama" method="post">
             <input type="submit" value="LLAMA chatbot via Groq">
         </form>
-        <form action="/dbs" method="post">
-            <input type="submit" value="Predict DBS price">
+         <form action="/start_telegram" method="post">
+            <input type="submit" value="Start Telegram">
+        </form>
+        <form action="/stop_telegram" method="post">
+            <input type="submit" value="Stop Telegram">
+        </form>       
+        
+        <form action="/start_telegram_spam" method="post">
+            <input type="submit" value="Start Telegram (To check for Spam)">
+        </form>
+        <form action="/stop_telegram_spam" method="post">
+            <input type="submit" value="Stop Telegram (To check for Spam)">
         </form>
     </div>
 </body>
