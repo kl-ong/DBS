@@ -113,7 +113,7 @@ def start_telegram():
 
 #----------------------------------------------
 @app.route("/telegram_webhook",methods=["GET","POST"])
-def telegram_spam_webhook():
+def telegram_webhook():
 
     # This endpoint will be called by Telegram when a new message is received
     update = request.get_json()
@@ -178,7 +178,6 @@ def start_telegram_spam():
     # Set the webhook URL for the Telegram bot
     set_webhook_url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/setWebhook?url={domain_url}/telegram_spam_webhook"
     webhook_response = requests.post(set_webhook_url, json={"url": domain_url, "drop_pending_updates": True})
-    # print('webhook:', webhook_response)
 
     if webhook_response.status_code == 200:
         # set status message
@@ -200,17 +199,17 @@ def telegram_spam_webhook():
         chat_id = update["message"]["chat"]["id"]
         query = update["message"]["text"]
 
-    # # load model
-    # model = joblib.load("spam_model.jl")
+    # load model
+    model = joblib.load("spam_model.jl")
 
-    # # make prediction
-    # pred = model.predict([[query]])
+    # make prediction
+    pred = model.predict([[query]])
 
-    # #Step: Send the result back to telegram
-    # if pred=="ham":
-    #     response_message = "[Is not a Spam]"
-    # else:
-    #     response_message = "[Is a Spam]"
+    #Step: Send the result back to telegram
+    if pred=="ham":
+        response_message = "[Is not a Spam]"
+    else:
+        response_message = "[Is a Spam]"
 
     response_message = "test"
 
