@@ -199,17 +199,17 @@ def telegram_spam_webhook():
         chat_id = update["message"]["chat"]["id"]
         query = update["message"]["text"]
 
-    # load model
-    model = joblib.load("spam_model.jl")
+    # # load model
+    # model = joblib.load("spam_model.jl")
 
-    # make prediction
-    pred = model.predict([[query]])
+    # # make prediction
+    # pred = model.predict([[query]])
 
-    #Step: Send the result back to telegram
-    if pred=="ham":
-        response_message = "[Is not a Spam]"
-    else:
-        response_message = "[Is a Spam]"
+    # #Step: Send the result back to telegram
+    # if pred=="ham":
+    #     response_message = "[Is not a Spam]"
+    # else:
+    #     response_message = "[Is a Spam]"
 
     response_message = "test"
 
