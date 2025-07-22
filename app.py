@@ -201,10 +201,9 @@ def telegram_spam_webhook():
 
     # # load model
     model = joblib.load("spam_model.jl")
+    vectorizer = joblib.load("spam_vectorizer.jl")
 
     # # make prediction
-    from sklearn.feature_extraction.text import CountVectorizer
-    vectorizer = CountVectorizer()
     X_emb = vectorizer.transform([query])
     pred = model.predict([X_emb])
 
