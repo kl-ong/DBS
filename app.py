@@ -189,6 +189,41 @@ def start_telegram_spam():
     return(render_template("telegram.html", status=status))
 
 #----------------------------------------------
+@app.route("/telegram_spam_webhook",methods=["GET","POST"])
+def telegram_spam_webhook():
+
+    # This endpoint will be called by Telegram when a new message is received
+    update = request.get_json()
+
+    if "message" in update and "text" in update["message"]:
+        # Extract the chat ID and message text from the update
+        chat_id = update["message"]["chat"]["id"]
+        query = update["message"]["text"]
+
+    # # load model
+    # model = joblib.load("spam_model.jl")
+
+    # # make prediction
+    # pred = model.predict([[query]])
+
+    # #Step: Send the result back to telegram
+    # if pred=="ham":
+    #     response_message = "[Is not a Spam]"
+    # else:
+    #     response_message = "[Is a Spam]"
+
+    response_message = "test"
+
+    # Send the response back to the Telegram chat
+    send_message_url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+    requests.post(send_message_url, json={
+        "chat_id": chat_id,
+        "text": response_message
+                            })
+    
+    return('ok', 200)
+
+#----------------------------------------------
 @app.route("/stop_telegram_spam",methods=["GET","POST"])
 def stop_telegram_spam():  
     domain_url = "https://dsai-superapp.onrender.com"
@@ -205,41 +240,6 @@ def stop_telegram_spam():
     
     return(render_template("telegram.html", status=status))
     # return(render_template("telegram.html"))
-
-#----------------------------------------------
-@app.route("/telegram_spam_webhook",methods=["GET","POST"])
-def telegram_spam_webhook():
-
-    # This endpoint will be called by Telegram when a new message is received
-    update = request.get_json()
-
-    if "message" in update and "text" in update["message"]:
-        # Extract the chat ID and message text from the update
-        chat_id = update["message"]["chat"]["id"]
-        query = update["message"]["text"]
-
-
-    # load model
-    model = joblib.load("spam_model.jl")
-
-    # make prediction
-    pred = model.predict([[query]])
-
-
-    #Step: Send the result back to telegram
-    if pred=="ham":
-        response_message = "[Is not a Spam]"
-    else:
-        response_message = "[Is a Spam]"
-
-
-    # Send the response back to the Telegram chat
-        send_message_url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
-        requests.post(send_message_url, json={
-            "chat_id": chat_id,
-            "text": response_message
-                                })
-    return('ok', 200)
 
 #----------------------------------------------
 
