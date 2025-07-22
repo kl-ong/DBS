@@ -200,18 +200,20 @@ def telegram_spam_webhook():
         query = update["message"]["text"]
 
     # # load model
-    # model = joblib.load("spam_model.jl")
+    model = joblib.load("spam_model.jl")
 
     # # make prediction
-    # pred = model.predict([[query]])
+    from sklearn.feature_extraction.text import CountVectorizer
+    vectorizer = CountVectorizer()
+    X_emb = vectorizer.transform([query])
+    pred = model.predict([X_emb])
 
-    # #Step: Send the result back to telegram
-    # if pred=="ham":
-    #     response_message = "[Is not a Spam]"
-    # else:
-    #     response_message = "[Is a Spam]"
+    #Step: Send the result back to telegram
+    if pred=="ham":
+        response_message = "[Is not a Spam]"
+    else:
+        response_message = "[Is a Spam]"
 
-    response_message = "test"
 
     # Send the response back to the Telegram chat
     send_message_url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
