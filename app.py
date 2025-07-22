@@ -205,10 +205,10 @@ def telegram_spam_webhook():
 
     # # make prediction
     X_emb = vectorizer.transform([query])
-    pred = model.predict([X_emb])
+    pred = model.predict(X_emb)
 
     #Step: Send the result back to telegram
-    if pred=="ham":
+    if pred[0]=="ham":
         response_message = "[Is not a Spam]"
     else:
         response_message = "[Is a Spam]"
