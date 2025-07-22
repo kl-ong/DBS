@@ -208,7 +208,7 @@ def stop_telegram_spam():
 
 #----------------------------------------------
 @app.route("/telegram_spam_webhook",methods=["GET","POST"])
-def telegram_webhook():
+def telegram_spam_webhook():
 
     # This endpoint will be called by Telegram when a new message is received
     update = request.get_json()
@@ -234,11 +234,11 @@ def telegram_webhook():
 
 
     # Send the response back to the Telegram chat
-    send_message_url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
-    requests.post(send_message_url, json={
-        "chat_id": chat_id,
-        "text": response_message
-    })
+        send_message_url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+        requests.post(send_message_url, json={
+            "chat_id": chat_id,
+            "text": response_message
+                                })
     return('ok', 200)
 
 #----------------------------------------------
