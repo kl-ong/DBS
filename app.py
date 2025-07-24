@@ -3,6 +3,8 @@ from groq import Groq
 import joblib
 import os
 import requests
+import sqlite3
+import datetime
 
 # Remember to set Environment Variables to the following API Keys
 # os.environ['GROQ_API_KEY'] = os.getenv("groq")
@@ -241,7 +243,52 @@ def stop_telegram_spam():
     return(render_template("telegram.html", status=status))
     # return(render_template("telegram.html"))
 
+
 #----------------------------------------------
+@app.route("/log_user",methods=["GET","POST"])
+def log_user():
+    txtName = request.form.get("q")
+    txtTimestamp = datetime.datetime.now()
+
+    #create_user
+    conn = sqlite3.connect('user.db')
+    c = conn.cursor()
+    c.execute('INSERT INTO user (name,timestamp) VALUES(?,?)',(txtName,txtTimestamp))
+    conn.commit()
+    c.close()
+    conn.close()
+
+    return(render_template("main.html"))
+
+@app.route("/user_log",methods=["GET","POST"])
+def user_log():
+    #read
+    conn = sqlite3.connect('user.db')
+    c = conn.cursor()
+    c.execute("select * from user")
+    r=""
+    for row in c:
+        print(row)
+        r= r+str(row)
+    c.close()
+    conn.close()
+    return(render_template("user_log.html",r=r))
+
+@app.route("/delete_log",methods=["GET","POST"])
+def delete_log():
+    conn = sqlite3.connect('user.db')
+    c = conn.cursor()
+    c.execute("delete from user")
+    conn.commit()
+    c.close()
+    conn.close()
+    return(render_template("delete_log.html"))
+
+#----------------------------------------------
+
+@app.route("/gradio_sepia",methods=["GET","POST"])
+def gradio_sepia():  
+    return(render_template("gradio_sepia.html"))
 
 if __name__ == "__main__":
     app.run()
